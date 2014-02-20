@@ -2,17 +2,22 @@
 mysql = require('mysql');
 Doskara = require('doskara');
 
-var data = [
+var store = [
   'booya',
   'gee',
   'one'
 ];
 
 Doskara.on('getAll', function() {
-  return data;
+  return store;
 });
 
 Doskara.on('save', function(data) {
-  data.push(data);
+  return Doskara.triggerEvent('beforeSave', data).then(function(data) {
+    store.push(data);
+    console.log(store);
+  });
 });
+
+Doskara.listen(Doskara.ports.dataStore);
 

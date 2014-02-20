@@ -10,6 +10,6 @@
   "license": "MIT",
   "dependencies": {
     "mysql": "~2.1.0",
-    "doskara": "0.0.1"
+    "doskara": "0.0.6"
   }
 }
