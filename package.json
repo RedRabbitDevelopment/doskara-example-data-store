@@ -9,7 +9,9 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
+    "doskara": "0.0.11",
+    "lodash": "^2.4.1",
     "mysql": "~2.1.0",
-    "doskara": "0.0.8"
+    "q": "^1.0.1"
   }
 }

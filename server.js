@@ -1,7 +1,9 @@
 
-var doskara, Server;
+var doskara, Server, Q;
+Q = require('q');
 doskara = require('doskara');
 _ = require('lodash');
+doskara.init(require('./Doskara.json'));
 
 var server = new doskara.Server((function() {
   var store, cbs, id;
@@ -16,22 +18,29 @@ var server = new doskara.Server((function() {
 
   return {
     getAll: function() {
+      console.log('getting all', store);
       return store;
     },
     setBeforeSave: function(callback) {
+      console.log('set before save');
       id++;
+      console.log('before save', callback.toString());
       cbs[id] = callback;
       return cbs;
     },
     clearBeforeSave: function(id) {
+      console.log('clear before save');
       delete cbs[id];
     },
     save: function(data) {
-      return _.map(cbs, function(cb) {
+      console.log('saving', data, cbs);
+      return Q.all(_.map(cbs, function(cb) {
         return cb(data);
-      }).then(function(results) {
-        if(-1 !== results.indexOf(results)) {
-          store.push(newData);
+      })).then(function(results) {
+        console.log('got through');
+        if(-1 !== results.indexOf(false) || true) {
+          store.push(data);
+          console.log('oh man', store);
           return true;
         };
       });
