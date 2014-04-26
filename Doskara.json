@@ -1,4 +1,3 @@
 {
-  name: 'data-store',
-  dependencies: ['mysql']
+  "name": "data-store"
 }
