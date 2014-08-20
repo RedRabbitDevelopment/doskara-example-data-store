@@ -1,4 +1,7 @@
 {
   "name": "data_store",
-  "version": "v1"
+  "version": "v1",
+  "ports": {
+    "main": 9000
+  }
 }
