@@ -4,9 +4,9 @@ Q = require('q');
 _ = require('lodash');
 var config = require('./Doskara.json');
 
-var server = require('socket.io').listen(config.ports.main, function() {
-  console.log('listening');
-});
+var io = require('socket.io')()
+
+io.listen(config.ports.main);
 
 io.sockets.on('connection', function(socket) {
   var store = [
@@ -19,6 +19,8 @@ io.sockets.on('connection', function(socket) {
     fn(store);
   });
   socket.on('save', function(data, fn) {
+    console.log('saving');
     store.push(data);
+    fn();
   });
 });
